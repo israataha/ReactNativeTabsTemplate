@@ -1,12 +1,16 @@
 import { Text, TextInput, SafeAreaView, StyleSheet, View } from 'react-native';
 import React, { useState } from 'react';
 import { Button } from '../components/Button';
+import { useAuthStore } from '../stores/authStore';
 
 export const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { signIn } = useAuthStore();
 
-  const login = () => {};
+  const login = () => {
+    signIn('token');
+  };
 
   return (
     <SafeAreaView style={styles.screenStyle}>

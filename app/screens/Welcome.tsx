@@ -15,6 +15,8 @@ import {
   DebugInstructions,
   LearnMoreLinks,
 } from 'react-native/Libraries/NewAppScreen';
+import { Button } from '../components';
+import { useAuthStore } from '../stores/authStore';
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -53,6 +55,8 @@ export const Welcome = () => {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
+  const { signOut } = useAuthStore();
+
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar
@@ -81,6 +85,7 @@ export const Welcome = () => {
             Read the docs to discover what to do next:
           </Section>
           <LearnMoreLinks />
+          <Button text="Log out" onPress={signOut} />
         </View>
       </ScrollView>
     </SafeAreaView>
