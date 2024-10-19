@@ -4,29 +4,58 @@ import { Button } from '../components/Button';
 import { useAuthStore } from '../stores/authStore';
 import { Link } from '@react-navigation/native';
 
-export const Login = () => {
+export const Signup = () => {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { signIn } = useAuthStore();
+  const { signUp } = useAuthStore();
 
-  const login = () => {
-    signIn('token');
+  const signup = () => {
+    signUp('token');
   };
 
   return (
     <SafeAreaView style={styles.screenStyle}>
       <View style={styles.containerStyle}>
-        <Text style={styles.headerTextStyle}> Log in</Text>
+        <Text style={styles.headerTextStyle}> Create an account</Text>
+
+        <Text style={styles.subtextStyle}>
+          Already have an account?{' '}
+          <Link style={styles.linkStyle} to={{ screen: 'Login' }}>
+            Log in
+          </Link>
+        </Text>
+
+        <View style={styles.inputContainerStyle}>
+          <Text style={styles.inputLabelStyle}>First Name</Text>
+          <TextInput
+            autoCapitalize="words"
+            value={firstName}
+            onChangeText={setFirstName}
+            textContentType="givenName"
+            style={styles.inputStyle}
+          />
+        </View>
+
+        <View style={styles.inputContainerStyle}>
+          <Text style={styles.inputLabelStyle}>Last Name</Text>
+          <TextInput
+            autoCapitalize="words"
+            value={lastName}
+            onChangeText={setLastName}
+            textContentType="familyName"
+            style={styles.inputStyle}
+          />
+        </View>
 
         <View style={styles.inputContainerStyle}>
           <Text style={styles.inputLabelStyle}>Email</Text>
           <TextInput
             autoCapitalize="none"
-            placeholder="Email"
             value={email}
             onChangeText={setEmail}
             textContentType="emailAddress"
-            keyboardType="email-address"
             style={styles.inputStyle}
           />
         </View>
@@ -35,7 +64,6 @@ export const Login = () => {
           <Text style={styles.inputLabelStyle}>Password</Text>
           <TextInput
             autoCapitalize="none"
-            placeholder="Password"
             value={password}
             onChangeText={setPassword}
             secureTextEntry={true}
@@ -43,13 +71,7 @@ export const Login = () => {
             style={styles.inputStyle}
           />
         </View>
-        <Button text="Login" style={styles.buttonStyle} onPress={login} />
-        <Text style={styles.subtextStyle}>
-          Don't have an account?{' '}
-          <Link style={styles.linkStyle} to={{ screen: 'Signup' }}>
-            Sign up
-          </Link>
-        </Text>
+        <Button text="Sign up" style={styles.buttonStyle} onPress={signup} />
       </View>
     </SafeAreaView>
   );
@@ -71,6 +93,13 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginVertical: 24,
   },
+  subtextStyle: {
+    marginHorizontal: 12,
+    marginVertical: 18,
+  },
+  linkStyle: {
+    fontWeight: '600',
+  },
   inputContainerStyle: {
     marginHorizontal: 12,
     marginVertical: 2,
@@ -91,12 +120,5 @@ const styles = StyleSheet.create({
   },
   buttonStyle: {
     marginTop: 40,
-  },
-  subtextStyle: {
-    marginHorizontal: 12,
-    marginVertical: 18,
-  },
-  linkStyle: {
-    fontWeight: '600',
   },
 });

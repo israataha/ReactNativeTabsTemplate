@@ -24,6 +24,7 @@ import { useAuthStore } from '../stores/authStore';
 
 type AppStackParamList = {
   Login: undefined;
+  Signup: undefined;
   Welcome: undefined;
 };
 
@@ -44,7 +45,10 @@ const AppStack = () => {
       {isAuthenticated ? (
         <Stack.Screen name="Welcome" component={Screens.Welcome} />
       ) : (
-        <Stack.Screen name="Login" component={Screens.Login} />
+        <>
+          <Stack.Screen name="Login" component={Screens.Login} />
+          <Stack.Screen name="Signup" component={Screens.Signup} />
+        </>
       )}
     </Stack.Navigator>
   );

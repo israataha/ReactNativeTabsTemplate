@@ -5,6 +5,7 @@ interface AuthState {
   isAuthenticated: boolean;
   signIn: (authToken: string) => void;
   signOut: () => void;
+  signUp: (authToken: string) => void;
 }
 
 export const useAuthStore = create<AuthState>(set => ({
@@ -12,4 +13,5 @@ export const useAuthStore = create<AuthState>(set => ({
   isAuthenticated: false,
   signIn: authToken => set({ token: authToken, isAuthenticated: true }),
   signOut: () => set({ token: null, isAuthenticated: false }),
+  signUp: authToken => set({ token: authToken, isAuthenticated: true }),
 }));
