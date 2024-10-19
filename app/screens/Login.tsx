@@ -1,14 +1,27 @@
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Link } from '@react-navigation/native';
-import React, { useState } from 'react';
-import { SafeAreaView, StyleSheet, Text, TextInput, View } from 'react-native';
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { z } from 'zod';
 
-import { Button } from '../components/Button';
+import { Button, TextField } from '../components';
 import { useAuthStore } from '../stores/authStore';
 
+const LoginSchema = z.object({
+  email: z.string().email(),
+  password: z.string(),
+});
+
+type LoginSchemaType = z.infer<typeof LoginSchema>;
+
 export const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const { signIn } = useAuthStore();
+
+  const { handleSubmit, control } = useForm<LoginSchemaType>({
+    mode: 'onBlur',
+    resolver: zodResolver(LoginSchema),
+  });
 
   const login = () => {
     signIn('token');
@@ -21,30 +34,27 @@ export const Login = () => {
 
         <View style={styles.inputContainerStyle}>
           <Text style={styles.inputLabelStyle}>Email</Text>
-          <TextInput
+          <TextField
             autoCapitalize="none"
-            placeholder="Email"
-            value={email}
-            onChangeText={setEmail}
-            textContentType="emailAddress"
+            name="email"
+            control={control}
             keyboardType="email-address"
-            style={styles.inputStyle}
+            textContentType="emailAddress"
           />
         </View>
 
         <View style={styles.inputContainerStyle}>
           <Text style={styles.inputLabelStyle}>Password</Text>
-          <TextInput
+          <TextField
             autoCapitalize="none"
-            placeholder="Password"
-            value={password}
-            onChangeText={setPassword}
+            control={control}
+            name="password"
             secureTextEntry={true}
-            textContentType="password"
             style={styles.inputStyle}
+            textContentType="password"
           />
         </View>
-        <Button text="Login" style={styles.buttonStyle} onPress={login} />
+        <Button text="Login" style={styles.buttonStyle} onPress={handleSubmit(login)} />
         <Text style={styles.subtextStyle}>
           Don't have an account?{' '}
           <Link style={styles.linkStyle} to={{ screen: 'Signup' }}>
