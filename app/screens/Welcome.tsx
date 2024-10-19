@@ -1,20 +1,21 @@
+import React, { PropsWithChildren } from 'react';
 import {
-  View,
-  Text,
   SafeAreaView,
   ScrollView,
   StatusBar,
   StyleSheet,
+  Text,
   useColorScheme,
+  View,
 } from 'react-native';
-import React, { PropsWithChildren } from 'react';
 import {
   Colors,
-  Header,
-  ReloadInstructions,
   DebugInstructions,
+  Header,
   LearnMoreLinks,
+  ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+
 import { Button } from '../components';
 import { useAuthStore } from '../stores/authStore';
 

@@ -1,13 +1,13 @@
+import React from 'react';
 import {
-  Text,
   Pressable,
-  StyleSheet,
   PressableProps,
   StyleProp,
+  StyleSheet,
+  Text,
   TextStyle,
   ViewStyle,
 } from 'react-native';
-import React from 'react';
 
 export interface ButtonProps extends PressableProps {
   /**

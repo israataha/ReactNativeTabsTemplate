@@ -1,8 +1,9 @@
-import { Text, TextInput, SafeAreaView, StyleSheet, View } from 'react-native';
+import { Link } from '@react-navigation/native';
 import React, { useState } from 'react';
+import { SafeAreaView, StyleSheet, Text, TextInput, View } from 'react-native';
+
 import { Button } from '../components/Button';
 import { useAuthStore } from '../stores/authStore';
-import { Link } from '@react-navigation/native';
 
 export const Login = () => {
   const [email, setEmail] = useState('');

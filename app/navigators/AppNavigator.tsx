@@ -4,13 +4,14 @@
  * and a "main" flow which the user will use once logged in.
  */
 
-import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
 import {
   createNativeStackNavigator,
   NativeStackScreenProps,
 } from '@react-navigation/native-stack';
+import React from 'react';
+
 import * as Screens from '../screens';
-import { NavigationContainer } from '@react-navigation/native';
 import { useAuthStore } from '../stores/authStore';
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
