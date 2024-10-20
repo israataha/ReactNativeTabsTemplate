@@ -34,25 +34,12 @@ export const Login = () => {
 
         <View style={styles.inputContainerStyle}>
           <Text style={styles.inputLabelStyle}>Email</Text>
-          <TextField
-            autoCapitalize="none"
-            name="email"
-            control={control}
-            keyboardType="email-address"
-            textContentType="emailAddress"
-          />
+          <TextField name="email" control={control} keyboardType="email-address" textContentType="emailAddress" />
         </View>
 
         <View style={styles.inputContainerStyle}>
           <Text style={styles.inputLabelStyle}>Password</Text>
-          <TextField
-            autoCapitalize="none"
-            control={control}
-            name="password"
-            secureTextEntry={true}
-            style={styles.inputStyle}
-            textContentType="password"
-          />
+          <TextField control={control} name="password" secureTextEntry={true} textContentType="password" />
         </View>
         <Button text="Login" style={styles.buttonStyle} onPress={handleSubmit(login)} />
         <Text style={styles.subtextStyle}>
@@ -88,17 +75,6 @@ const styles = StyleSheet.create({
   },
   inputLabelStyle: {
     fontSize: 12,
-  },
-  inputStyle: {
-    alignSelf: 'stretch',
-    borderWidth: 1,
-    borderColor: '#d4d4d4',
-    borderRadius: 4,
-    fontSize: 14,
-    height: 40,
-    marginVertical: 6,
-    paddingVertical: 0,
-    paddingHorizontal: 8,
   },
   buttonStyle: {
     marginTop: 40,
