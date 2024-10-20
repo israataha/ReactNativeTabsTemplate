@@ -1,13 +1,5 @@
 import React, { PropsWithChildren } from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import { SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, useColorScheme, View } from 'react-native';
 import {
   Colors,
   DebugInstructions,
@@ -17,7 +9,7 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 import { Button } from '../components';
-import { useAuthStore } from '../stores/authStore';
+import { useAuth } from '../core/auth';
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -56,7 +48,7 @@ export const Welcome = () => {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
-  const { signOut } = useAuthStore();
+  const { signOut } = useAuth();
 
   return (
     <SafeAreaView style={backgroundStyle}>
@@ -64,17 +56,15 @@ export const Welcome = () => {
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
       />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
+      <ScrollView contentInsetAdjustmentBehavior="automatic" style={backgroundStyle}>
         <Header />
         <View
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
           <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
+            Edit <Text style={styles.highlight}>App.tsx</Text> to change this screen and then come back to see your
+            edits.
           </Section>
           <Section title="See Your Changes">
             <ReloadInstructions />
@@ -82,9 +72,7 @@ export const Welcome = () => {
           <Section title="Debug">
             <DebugInstructions />
           </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
+          <Section title="Learn More">Read the docs to discover what to do next:</Section>
           <LearnMoreLinks />
           <Button text="Log out" onPress={signOut} />
         </View>

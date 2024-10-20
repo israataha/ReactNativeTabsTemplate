@@ -6,7 +6,7 @@ import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { z } from 'zod';
 
 import { Button, TextField } from '../components';
-import { useAuthStore } from '../stores/authStore';
+import { useAuth } from '../core/auth';
 
 const SignupSchema = z.object({
   first_name: z.string(),
@@ -18,7 +18,7 @@ const SignupSchema = z.object({
 type SignupSchemaType = z.infer<typeof SignupSchema>;
 
 export const Signup = () => {
-  const { signUp } = useAuthStore();
+  const { signUp } = useAuth();
 
   const { handleSubmit, control } = useForm<SignupSchemaType>({
     mode: 'onBlur',

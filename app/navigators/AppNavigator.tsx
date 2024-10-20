@@ -5,14 +5,11 @@
  */
 
 import { NavigationContainer } from '@react-navigation/native';
-import {
-  createNativeStackNavigator,
-  NativeStackScreenProps,
-} from '@react-navigation/native-stack';
+import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
 
+import { useAuth } from '../core/auth';
 import * as Screens from '../screens';
-import { useAuthStore } from '../stores/authStore';
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
  * as well as what properties (if any) they might take when navigating to them.
@@ -29,13 +26,12 @@ type AppStackParamList = {
   Welcome: undefined;
 };
 
-export type AppStackScreenProps<T extends keyof AppStackParamList> =
-  NativeStackScreenProps<AppStackParamList, T>;
+export type AppStackScreenProps<T extends keyof AppStackParamList> = NativeStackScreenProps<AppStackParamList, T>;
 
 const Stack = createNativeStackNavigator<AppStackParamList>();
 
 const AppStack = () => {
-  const { isAuthenticated } = useAuthStore();
+  const { isAuthenticated } = useAuth();
 
   return (
     <Stack.Navigator

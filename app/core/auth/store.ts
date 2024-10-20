@@ -8,7 +8,7 @@ interface AuthState {
   signUp: (authToken: string) => void;
 }
 
-export const useAuthStore = create<AuthState>(set => ({
+export const useAuth = create<AuthState>(set => ({
   token: null,
   isAuthenticated: false,
   signIn: authToken => set({ token: authToken, isAuthenticated: true }),
