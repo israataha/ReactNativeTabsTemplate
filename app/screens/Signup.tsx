@@ -1,16 +1,29 @@
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Link } from '@react-navigation/native';
-import React, { useState } from 'react';
-import { SafeAreaView, StyleSheet, Text, TextInput, View } from 'react-native';
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { z } from 'zod';
 
-import { Button } from '../components/Button';
+import { Button, TextField } from '../components';
 import { useAuthStore } from '../stores/authStore';
 
+const SignupSchema = z.object({
+  first_name: z.string(),
+  last_name: z.string(),
+  email: z.string().email(),
+  password: z.string(),
+});
+
+type SignupSchemaType = z.infer<typeof SignupSchema>;
+
 export const Signup = () => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const { signUp } = useAuthStore();
+
+  const { handleSubmit, control } = useForm<SignupSchemaType>({
+    mode: 'onBlur',
+    resolver: zodResolver(SignupSchema),
+  });
 
   const signup = () => {
     signUp('token');
@@ -30,49 +43,24 @@ export const Signup = () => {
 
         <View style={styles.inputContainerStyle}>
           <Text style={styles.inputLabelStyle}>First Name</Text>
-          <TextInput
-            autoCapitalize="words"
-            value={firstName}
-            onChangeText={setFirstName}
-            textContentType="givenName"
-            style={styles.inputStyle}
-          />
+          <TextField autoCapitalize="words" control={control} name="first_name" textContentType="givenName" />
         </View>
 
         <View style={styles.inputContainerStyle}>
           <Text style={styles.inputLabelStyle}>Last Name</Text>
-          <TextInput
-            autoCapitalize="words"
-            value={lastName}
-            onChangeText={setLastName}
-            textContentType="familyName"
-            style={styles.inputStyle}
-          />
+          <TextField autoCapitalize="words" control={control} name="last_name" textContentType="familyName" />
         </View>
 
         <View style={styles.inputContainerStyle}>
           <Text style={styles.inputLabelStyle}>Email</Text>
-          <TextInput
-            autoCapitalize="none"
-            value={email}
-            onChangeText={setEmail}
-            textContentType="emailAddress"
-            style={styles.inputStyle}
-          />
+          <TextField name="email" control={control} keyboardType="email-address" textContentType="emailAddress" />
         </View>
 
         <View style={styles.inputContainerStyle}>
           <Text style={styles.inputLabelStyle}>Password</Text>
-          <TextInput
-            autoCapitalize="none"
-            value={password}
-            onChangeText={setPassword}
-            secureTextEntry={true}
-            textContentType="password"
-            style={styles.inputStyle}
-          />
+          <TextField control={control} name="password" secureTextEntry={true} textContentType="password" />
         </View>
-        <Button text="Sign up" style={styles.buttonStyle} onPress={signup} />
+        <Button text="Sign up" style={styles.buttonStyle} onPress={handleSubmit(signup)} />
       </View>
     </SafeAreaView>
   );
@@ -107,17 +95,6 @@ const styles = StyleSheet.create({
   },
   inputLabelStyle: {
     fontSize: 12,
-  },
-  inputStyle: {
-    alignSelf: 'stretch',
-    borderWidth: 1,
-    borderColor: '#d4d4d4',
-    borderRadius: 4,
-    fontSize: 14,
-    height: 40,
-    marginVertical: 6,
-    paddingVertical: 0,
-    paddingHorizontal: 8,
   },
   buttonStyle: {
     marginTop: 40,
