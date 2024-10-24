@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { z } from 'zod';
 
-import { Button, TextField } from '../components';
+import { Button, ControlledTextField } from '../components';
 import { useAuth } from '../core/auth';
 
 const LoginSchema = z.object({
@@ -17,14 +17,18 @@ type LoginSchemaType = z.infer<typeof LoginSchema>;
 
 export const Login = () => {
   const { signIn } = useAuth();
-
-  const { handleSubmit, control } = useForm<LoginSchemaType>({
+  const { control, handleSubmit, getValues } = useForm<LoginSchemaType>({
     mode: 'onBlur',
     resolver: zodResolver(LoginSchema),
   });
 
-  const login = () => {
-    signIn('token');
+  const onSubmit = async () => {
+    const { email, password } = getValues();
+    try {
+      await signIn(email, password);
+    } catch (err) {
+      console.log('Login error: ', err);
+    }
   };
 
   return (
@@ -34,14 +38,19 @@ export const Login = () => {
 
         <View style={styles.inputContainerStyle}>
           <Text style={styles.inputLabelStyle}>Email</Text>
-          <TextField name="email" control={control} keyboardType="email-address" textContentType="emailAddress" />
+          <ControlledTextField
+            name="email"
+            control={control}
+            keyboardType="email-address"
+            textContentType="emailAddress"
+          />
         </View>
 
         <View style={styles.inputContainerStyle}>
           <Text style={styles.inputLabelStyle}>Password</Text>
-          <TextField control={control} name="password" secureTextEntry={true} textContentType="password" />
+          <ControlledTextField control={control} name="password" secureTextEntry={true} textContentType="password" />
         </View>
-        <Button text="Login" style={styles.buttonStyle} onPress={handleSubmit(login)} />
+        <Button text="Login" style={styles.buttonStyle} onPress={handleSubmit(onSubmit)} />
         <Text style={styles.subtextStyle}>
           Don't have an account?{' '}
           <Link style={styles.linkStyle} to={{ screen: 'Signup' }}>

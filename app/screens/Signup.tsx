@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { z } from 'zod';
 
-import { Button, TextField } from '../components';
+import { Button, ControlledTextField } from '../components';
 import { useAuth } from '../core/auth';
 
 const SignupSchema = z.object({
@@ -26,7 +26,7 @@ export const Signup = () => {
   });
 
   const signup = () => {
-    signUp('token');
+    signUp();
   };
 
   return (
@@ -43,22 +43,27 @@ export const Signup = () => {
 
         <View style={styles.inputContainerStyle}>
           <Text style={styles.inputLabelStyle}>First Name</Text>
-          <TextField autoCapitalize="words" control={control} name="first_name" textContentType="givenName" />
+          <ControlledTextField autoCapitalize="words" control={control} name="first_name" textContentType="givenName" />
         </View>
 
         <View style={styles.inputContainerStyle}>
           <Text style={styles.inputLabelStyle}>Last Name</Text>
-          <TextField autoCapitalize="words" control={control} name="last_name" textContentType="familyName" />
+          <ControlledTextField autoCapitalize="words" control={control} name="last_name" textContentType="familyName" />
         </View>
 
         <View style={styles.inputContainerStyle}>
           <Text style={styles.inputLabelStyle}>Email</Text>
-          <TextField name="email" control={control} keyboardType="email-address" textContentType="emailAddress" />
+          <ControlledTextField
+            name="email"
+            control={control}
+            keyboardType="email-address"
+            textContentType="emailAddress"
+          />
         </View>
 
         <View style={styles.inputContainerStyle}>
           <Text style={styles.inputLabelStyle}>Password</Text>
-          <TextField control={control} name="password" secureTextEntry={true} textContentType="password" />
+          <ControlledTextField control={control} name="password" secureTextEntry={true} textContentType="password" />
         </View>
         <Button text="Sign up" style={styles.buttonStyle} onPress={handleSubmit(signup)} />
       </View>
