@@ -52,6 +52,7 @@ export function ControlledTextField<T extends FieldValues>(props: ControllerText
       onBlur={field.onBlur}
       onChangeText={field.onChange}
       ref={field.ref}
+      testID={`${name.toString()}-input`}
       value={field.value}
       {...inputProps}
     />
