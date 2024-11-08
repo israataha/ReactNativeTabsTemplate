@@ -26,7 +26,7 @@ export const Signup = () => {
   });
 
   const signup = () => {
-    signUp();
+    signUp('token');
   };
 
   return (

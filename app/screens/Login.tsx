@@ -17,15 +17,14 @@ type LoginSchemaType = z.infer<typeof LoginSchema>;
 
 export const Login = () => {
   const { signIn } = useAuth();
-  const { control, handleSubmit, getValues } = useForm<LoginSchemaType>({
+  const { control, handleSubmit } = useForm<LoginSchemaType>({
     mode: 'onBlur',
     resolver: zodResolver(LoginSchema),
   });
 
   const onSubmit = async () => {
-    const { email, password } = getValues();
     try {
-      await signIn(email, password);
+      await signIn('token');
     } catch (err) {
       console.log('Login error: ', err);
     }

@@ -8,7 +8,8 @@
     "lint": "eslint .",
     "start": "react-native start",
     "test": "jest",
-    "test:ci": "jest --coverage"
+    "test:ci": "jest --coverage",
+    "type-check": "tsc"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
