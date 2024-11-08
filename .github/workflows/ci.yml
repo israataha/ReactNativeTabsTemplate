@@ -1,0 +1,43 @@
+name: CI — Yarn test and lint
+
+on: [workflow_dispatch, push, pull_request]
+
+jobs:
+  build-test-and-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: yarn
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Run linter
+        run: yarn lint
+
+      - name: Run type check
+        run: yarn type-check
+
+      - name: Run tests
+        run: yarn test:ci
+
+      # https://github.com/marketplace/actions/jest-coverage-comment
+      - name: Jest Coverage Comment
+        uses: MishaKav/jest-coverage-comment@main
+        if: github.event_name == 'pull_request'
+        with:
+          coverage-summary-path: ./coverage/coverage-summary.json
+          summary-title: 'Test Coverage'
+          badge-title: Coverage
+          create-new-comment: false
+          junitxml-title: 😎 Tests Results
+          junitxml-path: ./coverage/jest-junit.xml
+          coverage-title: 👀 Tests Details
+          coverage-path: ./coverage/coverage.txt
+          report-only-changed-files: true
