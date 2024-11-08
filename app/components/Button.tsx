@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  ActivityIndicator,
   Pressable,
   PressableProps,
   StyleProp,
@@ -10,6 +11,7 @@ import {
 } from 'react-native';
 
 export interface ButtonProps extends PressableProps {
+  loading?: boolean;
   /**
    * Text to display on the button
    */
@@ -25,10 +27,14 @@ export interface ButtonProps extends PressableProps {
 }
 
 export const Button = (props: ButtonProps) => {
-  const { style, ...rest } = props;
+  const { disabled = false, loading = false, style, testID, text, textStyle, ...rest } = props;
   return (
-    <Pressable style={[style, styles.button]} {...rest}>
-      <Text style={styles.buttonText}>{props.text}</Text>
+    <Pressable disabled={disabled || loading} style={[styles.button, style]} testID={testID} {...rest}>
+      {loading ? (
+        <ActivityIndicator size="small" testID={testID ? `${testID}-activity-indicator` : undefined} />
+      ) : (
+        <Text style={[styles.buttonText, textStyle]}>{text}</Text>
+      )}
     </Pressable>
   );
 };
