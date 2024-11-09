@@ -1,9 +1,14 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { render, RenderOptions, userEvent } from '@testing-library/react-native';
 import React, { ReactElement } from 'react';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 const createAppWrapper = () => {
-  return ({ children }: { children: React.ReactNode }) => <NavigationContainer>{children}</NavigationContainer>;
+  return ({ children }: { children: React.ReactNode }) => (
+    <SafeAreaProvider>
+      <NavigationContainer>{children}</NavigationContainer>
+    </SafeAreaProvider>
+  );
 };
 
 // use this if you want to test user events
