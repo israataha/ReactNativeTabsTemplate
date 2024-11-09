@@ -16,6 +16,12 @@ describe('Button component', () => {
     expect(screen.queryByText('Submit')).not.toBeOnTheScreen();
   });
 
+  it('should render the loading indicator correctly without testID', () => {
+    render(<Button text="Submit" loading={true} />);
+    expect(screen.getByTestId('activity-indicator')).toBeOnTheScreen();
+    expect(screen.queryByText('Submit')).not.toBeOnTheScreen();
+  });
+
   it('should call onClick handler when clicked', async () => {
     const onClick = jest.fn();
     const { user } = setup(<Button testID="button" text="Click the button" onPress={onClick} />);

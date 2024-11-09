@@ -1,5 +1,5 @@
 import React, { PropsWithChildren } from 'react';
-import { SafeAreaView, ScrollView, StatusBar, StyleSheet, Text, useColorScheme, View } from 'react-native';
+import { ScrollView, StatusBar, StyleSheet, Text, useColorScheme, View } from 'react-native';
 import {
   Colors,
   DebugInstructions,
@@ -8,7 +8,7 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-import { Button } from '../components';
+import { Button, Screen } from '../components';
 import { useAuth } from '../core/auth';
 
 type SectionProps = PropsWithChildren<{
@@ -51,7 +51,7 @@ export const Welcome = () => {
   const { signOut } = useAuth();
 
   return (
-    <SafeAreaView style={backgroundStyle}>
+    <Screen style={backgroundStyle}>
       <StatusBar
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
@@ -77,7 +77,7 @@ export const Welcome = () => {
           <Button text="Log out" onPress={signOut} />
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </Screen>
   );
 };
 

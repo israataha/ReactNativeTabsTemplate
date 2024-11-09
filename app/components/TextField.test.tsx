@@ -23,6 +23,12 @@ describe('TextField component', () => {
     expect(screen.getByTestId('field-error')).toHaveTextContent(error);
   });
 
+  it('should render error correctly without testID', () => {
+    const error = 'This field is required';
+    render(<TextField error={error} />);
+    expect(screen.getByTestId('error')).toHaveTextContent(error);
+  });
+
   it('should render the error message & placeholder correctly ', () => {
     render(<TextField testID="field" placeholder="Enter your username" error="This is an error message" />);
     expect(screen.getByTestId('field')).toBeOnTheScreen();

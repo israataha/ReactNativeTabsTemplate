@@ -31,7 +31,7 @@ export const Button = (props: ButtonProps) => {
   return (
     <Pressable disabled={disabled || loading} style={[styles.button, style]} testID={testID} {...rest}>
       {loading ? (
-        <ActivityIndicator size="small" testID={testID ? `${testID}-activity-indicator` : undefined} />
+        <ActivityIndicator size="small" testID={testID ? `${testID}-activity-indicator` : 'activity-indicator'} />
       ) : (
         <Text style={[styles.buttonText, textStyle]}>{text}</Text>
       )}
