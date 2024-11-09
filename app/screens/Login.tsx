@@ -1,7 +1,6 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet } from 'react-native';
 
-import { LoginForm } from '../components';
+import { LoginForm, Screen } from '../components';
 import { useAuth } from '../core/auth';
 
 export const Login = () => {
@@ -16,17 +15,8 @@ export const Login = () => {
   };
 
   return (
-    <SafeAreaView style={styles.screenStyle}>
+    <Screen>
       <LoginForm onSubmit={onSubmit} />
-    </SafeAreaView>
+    </Screen>
   );
 };
-
-const styles = StyleSheet.create({
-  screenStyle: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginHorizontal: 12,
-  },
-});
