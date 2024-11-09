@@ -31,7 +31,7 @@ export const TextField = forwardRef<TextInput, TextFieldProps>((props, ref) => {
         {...rest}
       />
       {error && (
-        <Text testID={testID ? `${testID}-error` : undefined} style={styles.errorStyle}>
+        <Text testID={testID ? `${testID}-error` : 'error'} style={styles.errorStyle}>
           {error}
         </Text>
       )}
