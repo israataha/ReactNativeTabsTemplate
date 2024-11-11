@@ -4,12 +4,13 @@
  * and a "main" flow which the user will use once logged in.
  */
 
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigatorScreenParams } from '@react-navigation/native';
 import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack';
 import React from 'react';
 
 import { useAuth } from '../core/auth';
 import * as Screens from '../screens';
+import { TabNavigator, TabParamList } from './TabNavigator';
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
  * as well as what properties (if any) they might take when navigating to them.
@@ -24,13 +25,14 @@ type AppStackParamList = {
   Login: undefined;
   Signup: undefined;
   Welcome: undefined;
+  BottomTabs: NavigatorScreenParams<TabParamList>;
 };
 
 export type AppStackScreenProps<T extends keyof AppStackParamList> = NativeStackScreenProps<AppStackParamList, T>;
 
 const Stack = createNativeStackNavigator<AppStackParamList>();
 
-const AppStack = () => {
+export const AppNavigator = () => {
   const { isAuthenticated } = useAuth();
 
   return (
@@ -40,7 +42,7 @@ const AppStack = () => {
       }}
       initialRouteName={isAuthenticated ? 'Welcome' : 'Login'}>
       {isAuthenticated ? (
-        <Stack.Screen name="Welcome" component={Screens.Welcome} />
+        <Stack.Screen name="BottomTabs" component={TabNavigator} />
       ) : (
         <>
           <Stack.Screen name="Login" component={Screens.Login} />
@@ -48,13 +50,5 @@ const AppStack = () => {
         </>
       )}
     </Stack.Navigator>
-  );
-};
-
-export const AppNavigator = () => {
-  return (
-    <NavigationContainer>
-      <AppStack />
-    </NavigationContainer>
   );
 };
