@@ -8,9 +8,6 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-import { Button, Screen } from '../components';
-import { useAuth } from '../core/auth';
-
 type SectionProps = PropsWithChildren<{
   title: string;
 }>;
@@ -48,10 +45,8 @@ export const Welcome = () => {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
-  const { signOut } = useAuth();
-
   return (
-    <Screen style={backgroundStyle}>
+    <View style={backgroundStyle}>
       <StatusBar
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={backgroundStyle.backgroundColor}
@@ -74,10 +69,9 @@ export const Welcome = () => {
           </Section>
           <Section title="Learn More">Read the docs to discover what to do next:</Section>
           <LearnMoreLinks />
-          <Button text="Log out" onPress={signOut} />
         </View>
       </ScrollView>
-    </Screen>
+    </View>
   );
 };
 

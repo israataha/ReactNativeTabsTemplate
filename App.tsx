@@ -6,6 +6,7 @@
  */
 
 // import { AppNavigator } from '@/navigators/AppNavigator';
+import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
@@ -14,7 +15,9 @@ import { AppNavigator } from './app/navigators/AppNavigator';
 function App(): React.JSX.Element {
   return (
     <SafeAreaProvider>
-      <AppNavigator />
+      <NavigationContainer>
+        <AppNavigator />
+      </NavigationContainer>
     </SafeAreaProvider>
   );
 }
